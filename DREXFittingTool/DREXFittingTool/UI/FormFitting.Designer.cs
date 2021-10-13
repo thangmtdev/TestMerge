@@ -66,18 +66,18 @@ namespace DREXFittingTool.UI
             this.lblRow.AutoSize = true;
             this.lblRow.Location = new System.Drawing.Point(12, 81);
             this.lblRow.Name = "lblRow";
-            this.lblRow.Size = new System.Drawing.Size(19, 13);
+            this.lblRow.Size = new System.Drawing.Size(55, 13);
             this.lblRow.TabIndex = 2;
-            this.lblRow.Text = "幅";
+            this.lblRow.Text = "横改行幅";
             // 
             // lblCol
             // 
             this.lblCol.AutoSize = true;
             this.lblCol.Location = new System.Drawing.Point(12, 105);
             this.lblCol.Name = "lblCol";
-            this.lblCol.Size = new System.Drawing.Size(27, 13);
+            this.lblCol.Size = new System.Drawing.Size(73, 13);
             this.lblCol.TabIndex = 3;
-            this.lblCol.Text = "高さ";
+            this.lblCol.Text = "縦改ページ幅";
             // 
             // txtWidth
             // 

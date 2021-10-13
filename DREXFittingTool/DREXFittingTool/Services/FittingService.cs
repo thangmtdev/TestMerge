@@ -102,9 +102,14 @@ namespace DREXFittingTool.Services
                                 param.Set(item.Value);
                         }
 
+                        //Get parameter mark
+                        Parameter paramMark = fsymbol.LookupParameter("d_継手符号");
+                        if (paramMark != null && paramMark.StorageType == StorageType.String)
+                            paramMark.Set(markFitting);
+
                         if (!retVal.Any(x => x.m_symbol.Name == fsymbol.Name))
                         {
-                            FittingData fData = new FittingData(fsymbol, markFitting, centerHeightVal);
+                            FittingData fData = new FittingData(fsymbol, markFitting, centerHeightVal, centerWidth);
                             retVal.Add(fData);
                         }
                     }
@@ -196,19 +201,15 @@ namespace DREXFittingTool.Services
                     int row_index = -1;
                     int col_index = -1;
 
+                    bool isTurnOnTitle = false;
                     //Get row and col position
                     if (index == 0)
-                        Common.SetTitleParameter(fData.m_symbol, 1);
+                        isTurnOnTitle = true;
 
                     GetPosition(all_cells, row, max_row, col, max_col, ref row_index, ref col_index);
 
                     if (row_index > rowCheck)
-                        Common.SetTitleParameter(fData.m_symbol, 1);
-                    else
-                    {
-                        if (index != 0)
-                            Common.SetTitleParameter(fData.m_symbol, 0);
-                    }
+                        isTurnOnTitle = true;
 
                     rowCheck = row_index;
 
@@ -231,6 +232,26 @@ namespace DREXFittingTool.Services
 
                     XYZ center = new XYZ(rangeX + dWidth, rangeY - dHeight, 0);
                     FamilyInstance newinstance = m_doc.Create.NewFamilyInstance(center, fData.m_symbol, item.Key);
+
+                    if (newinstance != null)
+                    {
+                        if (isTurnOnTitle)
+                        {
+                            Common.SetTitleParameter(newinstance, 1);
+                            m_doc.Regenerate();
+                            double titleLength = Common.GetTitleLength(newinstance);
+                            //Move to left
+                            var locPoint = newinstance.Location as LocationPoint;
+                            var ptMove = locPoint.Point;
+                            var ptToMove = ptMove + titleLength * vDraft.RightDirection.Negate();
+                            ElementTransformUtils.MoveElement(m_doc, newinstance.Id, ptToMove - ptMove);
+                        }
+                        else
+                        {
+                            Common.SetTitleParameter(newinstance, 0);
+                        }
+                    }
+
                     index++;
                 }
             }
@@ -242,97 +263,117 @@ namespace DREXFittingTool.Services
         /// <param name="dictFitting"></param>
         /// <param name="max_row"></param>
         /// <param name="max_col"></param>
-        public void UpdateFittingToDraftingView(List<FittingData> fittingDatas, ViewDrafting viewDraft, int max_row, int max_col, double width_one, double height_one, XYZ orgmaxPt, string nameOrg)
+        public void UpdateFittingToDraftingView(Dictionary<ViewDrafting, List<FittingData>> dictFitting, int max_row, int max_col, double width_one, double height_one, XYZ orgmaxPt)
         {
-            double rangeX = orgmaxPt.X;
-            double rangeY = orgmaxPt.Y;
-
-            List<Cell> all_cells = new List<Cell>();
-
-            for (int j = 1; j <= max_row; j++)
+            foreach (var item in dictFitting)
             {
-                for (int i = 1; i <= max_col; i++)
+                ViewDrafting vDraft = item.Key;
+                item.Key.Scale = 10;
+
+                List<FamilyInstance> fittingInstances = new FilteredElementCollector(m_doc, vDraft.Id).OfClass(typeof(FamilyInstance))
+                                                                                                      .Cast<FamilyInstance>()
+                                                                                                      .Where(x => x.Symbol != null && x.Symbol.Family.Name == Define.FamilyName)
+                                                                                                      .ToList();
+
+                if (fittingInstances.Count > 0)
                 {
-                    Cell cell = new Cell(j, i);
-                    all_cells.Add(cell);
-                }
-            }
+                    List<XYZ> lstPoint = new List<XYZ>();
+                    foreach (var fittingInstance in fittingInstances)
+                    {
+                        BoundingBoxXYZ box = fittingInstance.get_BoundingBox(vDraft);
+                        lstPoint.Add(box.Max);
+                        lstPoint.Add(box.Min);
+                    }
 
-            //Get list drafting view
-            List<FamilyInstance> fittingInstances = new FilteredElementCollector(m_doc, viewDraft.Id).OfClass(typeof(FamilyInstance))
-                                                                                                     .Cast<FamilyInstance>()
-                                                                                                     .Where(x => x.Symbol != null && x.Symbol.Family.Name == Define.FamilyName)
-                                                                                                     .ToList();
-            foreach (var item in all_cells)
-            {
-                double dHeight = (item.m_Row - 1) * height_one + (1 * height_one) / 2;
-                double dWidth = (item.m_Col - 1) * width_one + (1 * width_one) / 2;
+                    double maxX = lstPoint.Max(x => x.X);
+                    double maxY = lstPoint.Max(x => x.Y);
+                    double maxZ = lstPoint.Max(x => x.Z);
+                    double minX = lstPoint.Min(x => x.X);
+                    double minY = lstPoint.Min(x => x.Y);
+                    double minZ = lstPoint.Min(x => x.Z);
 
-                XYZ center = new XYZ(rangeX + dWidth, rangeY - dHeight, 0);
+                    var minPt = new XYZ(minX, minY, minZ);
+                    var maxPt = new XYZ(maxX, maxY, maxZ);
 
-                if (fittingInstances.Any(x => Common.IsEqual(Common.GetCenterPointInstance(x), center)))
-                    item.m_DONE = true;
-            }
-
-            ////////////////////////////////
-
-            int index = 0;
-            int rowCheck = 0;
-
-            List<FittingData> notPlaceDatas = new List<FittingData>();
-            foreach (FittingData fData in fittingDatas)
-            {
-                int col = 1;
-                int row = 1;
-
-                int row_index = -1;
-                int col_index = -1;
-
-                GetPosition(all_cells, row, max_row, col, max_col, ref row_index, ref col_index);
-
-                rowCheck = row_index;
-
-                if (row_index == -1 || col_index == -1)
-                {
-                    notPlaceDatas.Add(fData);
-                    continue;
+                    orgmaxPt = new XYZ(orgmaxPt.X, minPt.Y - (100 / 304.8), orgmaxPt.Z);
                 }
 
-                if (row_index > max_row)
-                    continue;
+                double rangeX = orgmaxPt.X;
+                double rangeY = orgmaxPt.Y;
 
-                if (col_index > max_col)
-                    continue;
+                List<Cell> all_cells = new List<Cell>();
 
-                if (col_index == 1)
-                    Common.SetTitleParameter(fData.m_symbol, 1);
-                else
-                    Common.SetTitleParameter(fData.m_symbol, 0);
-
-                SetCellToDone(row_index, row_index + row - 1, col_index, col_index + col - 1, all_cells);
-
-                //Calculate location
-                double dHeight = (row_index - 1) * height_one + (row * height_one) / 2;
-                double dWidth = (col_index - 1) * width_one + (col * width_one) / 2;
-
-                XYZ center = new XYZ(rangeX + dWidth, rangeY - dHeight, 0);
-                FamilyInstance newinstance = m_doc.Create.NewFamilyInstance(center, fData.m_symbol, viewDraft);
-                index++;
-            }
-
-            if (notPlaceDatas.Count > 0)
-            {
-                ViewFamilyType vd = new FilteredElementCollector(m_doc).OfClass(typeof(ViewFamilyType))
-                                                                       .Cast<ViewFamilyType>()
-                                                                       .FirstOrDefault(q => q.ViewFamily == ViewFamily.Drafting);
-
-                ViewDrafting draftView = ViewDrafting.Create(m_doc, vd.Id);
-                draftView.Name = Common.GetViewDraftingName(m_doc, nameOrg);
-                draftView.Scale = 10;
-
-                foreach (var item in notPlaceDatas)
+                for (int j = 1; j <= max_row; j++)
                 {
-                    UpdateFittingToDraftingView(notPlaceDatas, draftView, max_row, max_col, width_one, height_one, orgmaxPt, nameOrg);
+                    for (int i = 1; i <= max_col; i++)
+                    {
+                        Cell cell = new Cell(j, i);
+                        all_cells.Add(cell);
+                    }
+                }
+
+                int index = 0;
+                int rowCheck = 0;
+                foreach (FittingData fData in item.Value)
+                {
+                    int col = 1;
+                    int row = 1;
+
+                    int row_index = -1;
+                    int col_index = -1;
+
+                    bool isTurnOnTitle = false;
+                    //Get row and col position
+                    if (index == 0)
+                        isTurnOnTitle = true;
+
+                    GetPosition(all_cells, row, max_row, col, max_col, ref row_index, ref col_index);
+
+                    if (row_index > rowCheck)
+                        isTurnOnTitle = true;
+
+                    rowCheck = row_index;
+
+                    if (row_index == -1 || col_index == -1)
+                    {
+                        continue;
+                    }
+
+                    if (row_index > max_row)
+                        continue;
+
+                    if (col_index > max_col)
+                        continue;
+
+                    SetCellToDone(row_index, row_index + row - 1, col_index, col_index + col - 1, all_cells);
+
+                    //Calculate location
+                    double dHeight = (row_index - 1) * height_one + (row * height_one) / 2;
+                    double dWidth = (col_index - 1) * width_one + (col * width_one) / 2;
+
+                    XYZ center = new XYZ(rangeX + dWidth, rangeY - dHeight, 0);
+                    FamilyInstance newinstance = m_doc.Create.NewFamilyInstance(center, fData.m_symbol, item.Key);
+
+                    if (newinstance != null)
+                    {
+                        if (isTurnOnTitle)
+                        {
+                            Common.SetTitleParameter(newinstance, 1);
+                            m_doc.Regenerate();
+                            double titleLength = Common.GetTitleLength(newinstance);
+                            //Move to left
+                            var locPoint = newinstance.Location as LocationPoint;
+                            var ptMove = locPoint.Point;
+                            var ptToMove = ptMove + titleLength * vDraft.RightDirection.Negate();
+                            ElementTransformUtils.MoveElement(m_doc, newinstance.Id, ptToMove - ptMove);
+                        }
+                        else
+                        {
+                            Common.SetTitleParameter(newinstance, 0);
+                        }
+                    }
+
+                    index++;
                 }
             }
         }

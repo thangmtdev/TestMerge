@@ -15,6 +15,8 @@ namespace DREXFittingTool.Utils
 
         public const double DUT_MILLIMETER = 304.8;
 
+        public const double TITLE_LENGTH = 450 / DUT_MILLIMETER;
+
         public static void GetMaxRowAndCol(Document doc,
                                            ViewDrafting draftView,
                                            FittingData data,
@@ -28,18 +30,23 @@ namespace DREXFittingTool.Utils
         {
             //Get max row and max col
             XYZ point = new XYZ(0, 0, 0);
+
             FamilyInstance checkInstance = doc.Create.NewFamilyInstance(point, data.m_symbol, draftView);
-            var paramTitle = checkInstance.Symbol.LookupParameter("タイトル幅");
+            var paramCheckTitle = checkInstance.LookupParameter("枠_タイトル有");
+            paramCheckTitle.Set(1);
 
             doc.Regenerate();
+
+            var paramTitle = checkInstance.LookupParameter("制御_枠タイトル幅");
+            double titleVal = paramTitle.AsDouble();
             BoundingBoxXYZ box = checkInstance.get_BoundingBox(draftView);
             width_one = 0.0;
             height_one = 0.0;
-            Common.GetBoundingBoxSize(box, draftView, out width_one, out height_one);
-            orgmaxPt = box.Max;
-            width_one = width_one - paramTitle.AsDouble();
 
-            maxW = maxW - paramTitle.AsDouble();
+            GetFittingWithHeight(data.m_symbol, out width_one, out height_one);
+            orgmaxPt = box.Max;
+
+            maxW = maxW - titleVal;
             double valC = Math.Round(maxW / width_one);
             double valH = Math.Round(maxH / height_one);
 
@@ -59,6 +66,27 @@ namespace DREXFittingTool.Utils
             maxRow = valLastR;
 
             doc.Delete(checkInstance.Id);
+        }
+
+        /// <summary>
+        /// Get fitting width and height
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="width_one"></param>
+        /// <param name="height_one"></param>
+        private static void GetFittingWithHeight(FamilySymbol symbol, out double width_one, out double height_one)
+        {
+            width_one = 0.0;
+            height_one = 0.0;
+
+            var paramW = symbol.LookupParameter("枠_幅");
+            var paramH = symbol.LookupParameter("枠_高さ");
+
+            if (paramW != null)
+                width_one = paramW.AsDouble();
+
+            if (paramH != null)
+                height_one = paramH.AsDouble();
         }
 
         /// <summary>
@@ -278,9 +306,9 @@ namespace DREXFittingTool.Utils
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="val"></param>
-        public static void SetTitleParameter(FamilySymbol symbol, int val)
+        public static void SetTitleParameter(FamilyInstance instance, int val)
         {
-            var param = symbol.LookupParameter("タイトル");
+            var param = instance.LookupParameter("枠_タイトル有");
             if (param != null && param.StorageType == StorageType.Integer)
                 param.Set(val);
         }
@@ -321,16 +349,72 @@ namespace DREXFittingTool.Utils
         /// <returns></returns>
         public static bool ValidateSizeFitting(FittingData data, double maxW, double maxH)
         {
-            var paramW = data.m_symbol.LookupParameter("幅");
-            var paramH = data.m_symbol.LookupParameter("高さ");
+            var paramW = data.m_symbol.LookupParameter("枠_幅");
+            var paramH = data.m_symbol.LookupParameter("枠_高さ");
 
             if (paramW != null && paramH != null)
             {
-                if (paramW.AsDouble() < maxW || paramH.AsDouble() < maxH)
+                if (paramW.AsDouble() + TITLE_LENGTH < maxW || paramH.AsDouble() + TITLE_LENGTH < maxH)
                     return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Get title length
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static double GetTitleLength(FamilyInstance instance)
+        {
+            var paramTitle = instance.LookupParameter("制御_枠タイトル幅");
+            return paramTitle.AsDouble(); ;
+        }
+
+        /// <summary>
+        /// Get data mapping
+        /// </summary>
+        /// <param name="fileData"></param>
+        /// <returns></returns>
+        public static List<MappingData> GetDataMapping(string[] fileData)
+        {
+            List<MappingData> retVal = new List<MappingData>();
+
+            //Get list Parameter
+            string[] paramSplit = fileData[0].Split(',');
+            List<string> paramNames = new List<string>();
+            for (int i = 0; i < paramSplit.Length; i++)
+            {
+                paramNames.Add(paramSplit[i]);
+            }
+
+            for (int i = 1; i < fileData.Length; i++)
+            {
+                try
+                {
+                    string[] data = fileData[i].Split(',');
+
+                    KeyData key1 = new KeyData(paramNames[0], data[0]);
+                    KeyData key2 = new KeyData(paramNames[1], data[1]);
+                    KeyData key3 = new KeyData(paramNames[2], data[2]);
+                    KeyData key4 = new KeyData(paramNames[3], data[3]);
+                    KeyData key5 = new KeyData(paramNames[4], data[4]);
+                    MappingData mData = new MappingData(key2, key1, key3, key4, key5);
+
+                    for (int j = 0; j < data.Length; j++)
+                    {
+                        if (!mData.m_dictParameter.ContainsKey(paramNames[j]))
+                            mData.m_dictParameter.Add(paramNames[j], data[j]);
+                    }
+
+                    retVal.Add(mData);
+                }
+                catch
+                {
+                }
+            }
+            return retVal;
         }
     }
 }
