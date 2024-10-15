@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>建具トラス連携</Name>
+    <Assembly>C:\Program Files\DaiwaHouse\D-Rex+B 2024 意匠構造Trial\Programs\DREXCreateFunctionForTrussLink\DREXCreateFunctionForTrussLink.dll</Assembly>
+    <AddInId>10306050-4356-41E6-8543-51CECFA2E3E3</AddInId>
+    <FullClassName>DREXCreateFunctionForTrussLink.App</FullClassName>
+    <VendorId>apptec.co.jp</VendorId>
+    <VendorDescription>APPLIED TECHNOLOGY CO.,LTD., www.apptec.co.jp</VendorDescription>
+  </AddIn>
+</RevitAddIns>

@@ -1,0 +1,91 @@
+﻿using Autodesk.Revit.UI;
+using CefSharp.WinForms;
+using CefSharp;
+using DREXCreateFunctionForTrussLink.Data;
+using DREXCreateFunctionForTrussLink.Utils;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DREXCreateFunctionForTrussLink.UI
+{
+    public partial class FormMain : Form
+    {
+        public ExternalEvent m_ExEvent;
+
+        public ExtenalHandler m_Handler;
+
+        private ChromiumWebBrowser chromeBrowser;
+
+        private string m_UserId = string.Empty;
+        private string m_Token = string.Empty;
+
+        private string WEB_BROWSER = "https://dev.truss.me/project/{0}/joinery/schedule/window-frame";
+
+        public FormMain(ExternalEvent exEvent, ExtenalHandler handler, string userId, string token)
+        {
+            InitializeComponent();
+
+            m_ExEvent = exEvent;
+            m_Handler = handler;
+            m_UserId = userId;
+            m_Token = token;
+            Init();
+        }
+
+        /// <summary>
+        /// Init list project
+        /// </summary>
+        private void Init()
+        {
+            if (!Cef.IsInitialized)
+            {
+                CefSettings settings = new CefSettings();
+                Cef.Initialize(settings);
+            }
+
+            var lstProjectModel = CommonTruss.GetProjectsToken(m_UserId, m_Token);
+            cbxListProject.DataSource = lstProjectModel.OrderBy(x => x.Name).ToList();
+            cbxListProject.DisplayMember = "Name";
+            cbxListProject.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Event combobox selected index changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbxListProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var project = cbxListProject.SelectedItem as ProjectModel;
+            if (project != null)
+            {
+                chromeBrowser = new ChromiumWebBrowser(string.Format(WEB_BROWSER, project.Id.ToString()));
+                chromeBrowser.Dock = DockStyle.Fill;
+                this.mainTableLayoutPanel.Controls.Clear();
+                this.mainTableLayoutPanel.Controls.Add(chromeBrowser);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            chromeBrowser.EvaluateScriptAsync("alert('test');").ContinueWith((reponse) => {
+            });
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            chromeBrowser.EvaluateScriptAsync("Math.abs(-1.0)").ContinueWith((reponse) => {
+                String title = (String)reponse.Result.Result;
+                MessageBox.Show($"document.title = {title}");
+            });
+
+        }
+    }
+}
