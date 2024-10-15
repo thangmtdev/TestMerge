@@ -11,7 +11,11 @@ namespace DREXCreateFunctionForTrussLink.Utils
     {
         public static int GetColumnInDataGrid(DataGridView dg, string sColumnName)
         {
+<<<<<<< HEAD
             for (int ii = 0; ii < dg.Columns.Count; ii++)
+=======
+            for (int ii = 0; ii < dg.Columns.Count;ii++)
+>>>>>>> English
             {
                 if (dg.Columns[ii].HeaderText == sColumnName)
                 {
@@ -22,4 +26,8 @@ namespace DREXCreateFunctionForTrussLink.Utils
             return -1;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> English

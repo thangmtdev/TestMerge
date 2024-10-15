@@ -18,7 +18,10 @@ namespace DREXCreateFunctionForTrussLink.UI
         private List<Data.DataFilter> _lstDataFilter = new List<Data.DataFilter>();
 
         public List<string> _lstFilter = new List<string>();
+<<<<<<< HEAD
         public List<DataFilter> _lstSaveDataFilterNonCheck = new List<DataFilter>();
+=======
+>>>>>>> English
 
         public FormFilter(List<Data.DataFilter> lstDataFilter)
         {
@@ -30,6 +33,7 @@ namespace DREXCreateFunctionForTrussLink.UI
 
         private void Init()
         {
+<<<<<<< HEAD
             if (_lstDataFilter?.Count > 0)
             {
                 foreach (DataFilter data in _lstDataFilter.OrderBy(x => x.Name).ToList())
@@ -37,11 +41,18 @@ namespace DREXCreateFunctionForTrussLink.UI
                     var index = clbFilter.Items.Add(data.Name);
                     clbFilter.SetItemChecked(index, data.IsDisplay);
                 }
+=======
+            foreach (DataFilter data in _lstDataFilter)
+            {
+                var index = clbFilter.Items.Add(data.Name);
+                clbFilter.SetItemChecked(index, data.IsDisplay);
+>>>>>>> English
             }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             foreach (var item in clbFilter.Items)
             {
                 DataFilter data = new DataFilter();
@@ -58,6 +69,11 @@ namespace DREXCreateFunctionForTrussLink.UI
                     data.IsDisplay = true;
                     _lstFilter.Add(item.ToString());
                 }
+=======
+            foreach (var item in clbFilter.CheckedItems)
+            {
+                _lstFilter.Add(item.ToString());
+>>>>>>> English
             }
 
             this.DialogResult = DialogResult.OK;

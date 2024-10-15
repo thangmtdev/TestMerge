@@ -18,6 +18,11 @@ using DREXCreateFunctionForTrussLink.UI;
 using static DREXCreateFunctionForTrussLink.UI.FormSetParameterWindowDoor;
 using DREXCreateFunctionForTrussLink.Utils;
 using System.Windows;
+<<<<<<< HEAD
+=======
+using DREXCreateFunctionForTrussLink.UI.DataFormSetParameterWindowDoor;
+using DREXCreateFunctionForTrussLink.Command.Handler.Cmd.Routines;
+>>>>>>> English
 
 namespace DREXCreateFunctionForTrussLink.Command.Handler
 {
@@ -70,6 +75,16 @@ namespace DREXCreateFunctionForTrussLink.Command.Handler
                 {
                     tgr.Start();
 
+<<<<<<< HEAD
+=======
+                    MessageBoxResult retDlg = RoutineTruss.ClearTrussIdNotExistTrussIdInProject(uiapp, ProjectId);
+                    if (retDlg == MessageBoxResult.Cancel || retDlg == MessageBoxResult.None)
+                    {
+                        tgr.RollBack();
+                        return;
+                    }
+
+>>>>>>> English
                     // まずは建具　記号と種類を設定する。
                     using (Transaction txCur = new Transaction(doc, "建具パラメータ設定"))
                     {

@@ -33,7 +33,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
+<<<<<<< HEAD
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2019\Revit.exe</StartProgram>
+=======
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2021\Revit.exe</StartProgram>
+>>>>>>> English
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,7 +47,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
+<<<<<<< HEAD
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2019\Revit.exe</StartProgram>
+=======
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2021\Revit.exe</StartProgram>
+>>>>>>> English
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release_2024|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,7 +61,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
+<<<<<<< HEAD
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2019\Revit.exe</StartProgram>
+=======
+    <StartProgram>$(ProgramW6432)\Autodesk\Revit 2021\Revit.exe</StartProgram>
+>>>>>>> English
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -175,15 +187,24 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
+<<<<<<< HEAD
     <Reference Include="WindowZEBForTruss, Version=2024.6.12.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\DaiwaHouse\D-Rex+B 2024 意匠構造Trial\Programs\DREXCreateFunctionForTrussLink\WindowZEBForTruss.dll</HintPath>
+=======
+    <Reference Include="WindowZEBForTruss">
+      <HintPath>..\..\WindowZEB\WindowZEB\bin\Release_2024\WindowZEBForTruss.dll</HintPath>
+>>>>>>> English
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\Handler\Cmd\HdlCmdTrussIDClear.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Command\Handler\Cmd\Routines\RoutineTruss.cs" />
+>>>>>>> English
     <Compile Include="Command\Handler\HandlerCmdForTruss.cs" />
     <Compile Include="Command\Handler\Cmd\HdlCmdRevitToTruss.cs" />
     <Compile Include="Command\Handler\Cmd\HdlCmdTrussToRevit.cs" />
@@ -202,6 +223,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="UI\DataFormSetParameterWindowDoor\RowDoorWindow.cs" />
+>>>>>>> English
     <Compile Include="UI\FormFilter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +250,10 @@
     <Compile Include="Utils\CommonTruss.cs" />
     <Compile Include="Utils\Define.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Utils\FormUtil.cs" />
+>>>>>>> English
     <Compile Include="Utils\MdlSetting.cs" />
   </ItemGroup>
   <ItemGroup />

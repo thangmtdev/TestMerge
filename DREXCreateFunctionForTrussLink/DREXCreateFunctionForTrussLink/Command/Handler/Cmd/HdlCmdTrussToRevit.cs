@@ -1,6 +1,10 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using CefSharp;
+<<<<<<< HEAD
+=======
+using DREXCreateFunctionForTrussLink.Command.Handler.Cmd.Routines;
+>>>>>>> English
 using DREXCreateFunctionForTrussLink.UI;
 using DREXCreateFunctionForTrussLink.Utils;
 using DREXTrussLibForTruss.Models.Json.FinalDesign;
@@ -92,6 +96,16 @@ namespace DREXCreateFunctionForTrussLink.Command.Handler
                         return;
                     }
 
+<<<<<<< HEAD
+=======
+                    MessageBoxResult retDlg = RoutineTruss.ClearTrussIdNotExistTrussIdInProject(uiapp, ProjectId, recvData);
+                    if (retDlg == MessageBoxResult.Cancel || retDlg == MessageBoxResult.None)
+                    {
+                        tgr.RollBack();
+                        return;
+                    }
+
+>>>>>>> English
                     {
                         RoutineUpdateParameters routine = new RoutineUpdateParameters();
                         RoutineUpdateParameters.Result result = routine.Execute(new RoutineUpdateParameters.Args(

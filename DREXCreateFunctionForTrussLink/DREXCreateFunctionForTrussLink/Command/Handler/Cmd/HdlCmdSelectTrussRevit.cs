@@ -46,6 +46,13 @@ namespace DREXCreateFunctionForTrussLink
 
                 Parameter prmTyp = insCur.Symbol.LookupParameter("trussBDTypeID");
                 String sParamTyp = prmTyp == null ? "" : prmTyp.AsString();
+<<<<<<< HEAD
+=======
+                if (sParamIns == null || sParamTyp == null)
+                {
+                    continue;
+                }
+>>>>>>> English
 
                 if ( (sParamIns.Length > 0 && listTrussId.Contains(sParamIns)) ||
                     (sParamTyp.Length > 0 && listTrussId.Contains(sParamTyp))

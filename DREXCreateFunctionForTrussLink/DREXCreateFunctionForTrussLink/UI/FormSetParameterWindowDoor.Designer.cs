@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+<<<<<<< HEAD
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSetParameterWindowDoor));
+=======
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+>>>>>>> English
             this.btunOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.dgList = new System.Windows.Forms.DataGridView();
@@ -84,6 +90,7 @@
             this.dgList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+<<<<<<< HEAD
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -113,6 +120,37 @@
             this.dgList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgList.RowTemplate.Height = 21;
             this.dgList.Size = new System.Drawing.Size(1064, 313);
+=======
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgList.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgList.Location = new System.Drawing.Point(3, 100);
+            this.dgList.Name = "dgList";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgList.RowTemplate.Height = 21;
+            this.dgList.Size = new System.Drawing.Size(1064, 386);
+>>>>>>> English
             this.dgList.TabIndex = 1;
             this.dgList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgList_CellClick);
             this.dgList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -126,9 +164,16 @@
             this.label1.Location = new System.Drawing.Point(5, 5);
             this.label1.Margin = new System.Windows.Forms.Padding(5);
             this.label1.Name = "label1";
+<<<<<<< HEAD
             this.label1.Size = new System.Drawing.Size(1060, 125);
             this.label1.TabIndex = 2;
             this.label1.Text = resources.GetString("label1.Text");
+=======
+            this.label1.Size = new System.Drawing.Size(1060, 54);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "・建具種類と、建具番号が空の項目があります。以下で修正してください。\r\n\r\n・ドアとシャッターの切り替えは分類列の各項目をクリックすることで変更できます。\r\n＊一" +
+    "部シャッターファミリはドアと認識されていることがありますので、切り替え対応をお願いします。";
+>>>>>>> English
             // 
             // cbFilterOnlyError
             // 
@@ -168,8 +213,13 @@
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
+<<<<<<< HEAD
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+=======
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+>>>>>>> English
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1070, 534);
@@ -216,12 +266,20 @@
             this.tableLayoutPanel3.Controls.Add(this.textBox1, 7, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnCategory, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+<<<<<<< HEAD
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 135);
+=======
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 64);
+>>>>>>> English
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+<<<<<<< HEAD
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1070, 35);
+=======
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1070, 33);
+>>>>>>> English
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // btnTateguShurui
@@ -230,7 +288,11 @@
             this.btnTateguShurui.Location = new System.Drawing.Point(685, 5);
             this.btnTateguShurui.Margin = new System.Windows.Forms.Padding(5);
             this.btnTateguShurui.Name = "btnTateguShurui";
+<<<<<<< HEAD
             this.btnTateguShurui.Size = new System.Drawing.Size(145, 25);
+=======
+            this.btnTateguShurui.Size = new System.Drawing.Size(145, 23);
+>>>>>>> English
             this.btnTateguShurui.TabIndex = 7;
             this.btnTateguShurui.Text = "建具種類";
             this.btnTateguShurui.UseVisualStyleBackColor = true;
@@ -242,7 +304,11 @@
             this.btnRoomName.Location = new System.Drawing.Point(530, 5);
             this.btnRoomName.Margin = new System.Windows.Forms.Padding(5);
             this.btnRoomName.Name = "btnRoomName";
+<<<<<<< HEAD
             this.btnRoomName.Size = new System.Drawing.Size(145, 25);
+=======
+            this.btnRoomName.Size = new System.Drawing.Size(145, 23);
+>>>>>>> English
             this.btnRoomName.TabIndex = 6;
             this.btnRoomName.Text = "部屋";
             this.btnRoomName.UseVisualStyleBackColor = true;
@@ -254,7 +320,11 @@
             this.btnTypeName.Location = new System.Drawing.Point(375, 5);
             this.btnTypeName.Margin = new System.Windows.Forms.Padding(5);
             this.btnTypeName.Name = "btnTypeName";
+<<<<<<< HEAD
             this.btnTypeName.Size = new System.Drawing.Size(145, 25);
+=======
+            this.btnTypeName.Size = new System.Drawing.Size(145, 23);
+>>>>>>> English
             this.btnTypeName.TabIndex = 5;
             this.btnTypeName.Text = "タイプ名";
             this.btnTypeName.UseVisualStyleBackColor = true;
@@ -266,7 +336,11 @@
             this.btnFamilyName.Location = new System.Drawing.Point(220, 5);
             this.btnFamilyName.Margin = new System.Windows.Forms.Padding(5);
             this.btnFamilyName.Name = "btnFamilyName";
+<<<<<<< HEAD
             this.btnFamilyName.Size = new System.Drawing.Size(145, 25);
+=======
+            this.btnFamilyName.Size = new System.Drawing.Size(145, 23);
+>>>>>>> English
             this.btnFamilyName.TabIndex = 4;
             this.btnFamilyName.Text = "ファミリ名";
             this.btnFamilyName.UseVisualStyleBackColor = true;
@@ -279,7 +353,11 @@
             this.label2.Location = new System.Drawing.Point(5, 5);
             this.label2.Margin = new System.Windows.Forms.Padding(5);
             this.label2.Name = "label2";
+<<<<<<< HEAD
             this.label2.Size = new System.Drawing.Size(50, 25);
+=======
+            this.label2.Size = new System.Drawing.Size(50, 23);
+>>>>>>> English
             this.label2.TabIndex = 0;
             this.label2.Text = "フィルタ";
             // 
@@ -290,7 +368,11 @@
             this.label3.Location = new System.Drawing.Point(840, 5);
             this.label3.Margin = new System.Windows.Forms.Padding(5);
             this.label3.Name = "label3";
+<<<<<<< HEAD
             this.label3.Size = new System.Drawing.Size(70, 25);
+=======
+            this.label3.Size = new System.Drawing.Size(70, 23);
+>>>>>>> English
             this.label3.TabIndex = 1;
             this.label3.Text = "キーワード";
             // 
@@ -300,7 +382,11 @@
             this.textBox1.Location = new System.Drawing.Point(920, 5);
             this.textBox1.Margin = new System.Windows.Forms.Padding(5);
             this.textBox1.Name = "textBox1";
+<<<<<<< HEAD
             this.textBox1.Size = new System.Drawing.Size(145, 20);
+=======
+            this.textBox1.Size = new System.Drawing.Size(145, 19);
+>>>>>>> English
             this.textBox1.TabIndex = 2;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -310,7 +396,11 @@
             this.btnCategory.Location = new System.Drawing.Point(65, 5);
             this.btnCategory.Margin = new System.Windows.Forms.Padding(5);
             this.btnCategory.Name = "btnCategory";
+<<<<<<< HEAD
             this.btnCategory.Size = new System.Drawing.Size(145, 25);
+=======
+            this.btnCategory.Size = new System.Drawing.Size(145, 23);
+>>>>>>> English
             this.btnCategory.TabIndex = 3;
             this.btnCategory.Text = "分類";
             this.btnCategory.UseVisualStyleBackColor = true;

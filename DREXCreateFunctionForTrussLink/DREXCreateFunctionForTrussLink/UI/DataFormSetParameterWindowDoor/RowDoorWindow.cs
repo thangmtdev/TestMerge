@@ -1,8 +1,20 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+=======
+﻿using Autodesk.Revit.DB;
+using DREXCreateFunctionForTrussLink.Utils;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+>>>>>>> English
 
 namespace DREXCreateFunctionForTrussLink.UI.DataFormSetParameterWindowDoor
 {
@@ -50,6 +62,19 @@ namespace DREXCreateFunctionForTrussLink.UI.DataFormSetParameterWindowDoor
                     ClmCategory = "シャッター";
                 }
             }
+<<<<<<< HEAD
+=======
+
+            Parameter prmTrussType = Common.GetParameter(insFir.Symbol, Define.TRUSS_TYPE);
+            if (prmTrussType != null)
+            {
+                ClmIsIgnoreType = prmTrussType.AsInteger() == 1;
+            } else
+            {
+                ClmIsIgnoreType = false;
+            }
+
+>>>>>>> English
             ClmFamilyName = insFir.Symbol.FamilyName;
             ClmTypeName = insFir.Symbol.Name;
             ClmCount = ins.Count.ToString();
@@ -81,6 +106,16 @@ namespace DREXCreateFunctionForTrussLink.UI.DataFormSetParameterWindowDoor
             return ins.First().Symbol;
         }
 
+<<<<<<< HEAD
+=======
+        [DisplayName("連携対象外")]
+        public bool ClmIsIgnoreType
+        {
+            get;
+            set;
+        }
+
+>>>>>>> English
         [DisplayName("分類")]
         [ReadOnly(true)]
         public string ClmCategory
@@ -193,4 +228,8 @@ namespace DREXCreateFunctionForTrussLink.UI.DataFormSetParameterWindowDoor
             throw new NotImplementedException();
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> English

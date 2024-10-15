@@ -18,6 +18,10 @@ namespace DREXCreateFunctionForTrussLink
 {
     internal class App : IExternalApplication
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> English
         public Result OnShutdown(UIControlledApplication application)
         {
             return Result.Succeeded;

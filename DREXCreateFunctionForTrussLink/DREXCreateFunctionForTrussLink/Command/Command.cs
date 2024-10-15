@@ -46,6 +46,16 @@ namespace DREXCreateFunctionForTrussLink.Command
             {
                 Process process = Process.GetCurrentProcess();
 
+<<<<<<< HEAD
+=======
+                // 初回起動時は
+                if(FormTrussDoorWindow.IsFirst())
+                {
+                    UI.FormTrussDoorWindow frmMainTest = new UI.FormTrussDoorWindow(userInfo, token, uiapp);
+                    frmMainTest.ShowDialog();
+                }
+
+>>>>>>> English
                 IntPtr h = process.MainWindowHandle;
                 UI.FormTrussDoorWindow frmMain = new UI.FormTrussDoorWindow(userInfo, token, uiapp);
                 frmMain.Show(new JtWindowHandle(h));

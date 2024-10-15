@@ -28,6 +28,11 @@ namespace DREXCreateFunctionForTrussLink.UI
 {
     public partial class FormTrussDoorWindow : System.Windows.Forms.Form
     {
+<<<<<<< HEAD
+=======
+        private static bool m_isFirst = true;
+
+>>>>>>> English
         private ExternalEvent m_ExEvent = null;
         private HandlerCmdForTruss m_Handler = null;
 
@@ -50,6 +55,14 @@ namespace DREXCreateFunctionForTrussLink.UI
 
         private double dZoomLevel = 0.0;
 
+<<<<<<< HEAD
+=======
+        static public bool IsFirst()
+        {
+            return m_isFirst;
+        }
+
+>>>>>>> English
         public FormTrussDoorWindow(string userId, string token, UIApplication uiapp)
         {
             InitializeComponent();
@@ -78,11 +91,23 @@ namespace DREXCreateFunctionForTrussLink.UI
             }
 
             var lstProjectModel = CommonTruss.GetProjectsToken(m_UserId, m_Token);
+<<<<<<< HEAD
             cbxListProject.DataSource = lstProjectModel.OrderByDescending(x => x.Updated_at).ToList();
             cbxListProject.DisplayMember = "Name";
 
             if (lstProjectModel.Count != 0)
                 cbxListProject.SelectedIndex = 0;
+=======
+
+            if (lstProjectModel.Count == 0)
+            {
+                MessageBox.Show("プロジェクトの一覧の取得に失敗しました。Trussログインしているかどうか確認してさい。");
+                return;
+            }
+            cbxListProject.DataSource = lstProjectModel.OrderByDescending(x => x.Updated_at).ToList();
+            cbxListProject.DisplayMember = "Name";
+            cbxListProject.SelectedIndex = 0;
+>>>>>>> English
 
             this.Width = Properties.Settings.Default.DlgWidth;
             this.Height = Properties.Settings.Default.DlgHeight;
@@ -183,6 +208,15 @@ namespace DREXCreateFunctionForTrussLink.UI
                     }, 500);
                 ");
             }
+<<<<<<< HEAD
+=======
+
+            if(m_isFirst)
+            {
+                m_isFirst = false;
+                this.Close();
+            }
+>>>>>>> English
         }
 
         /// <summary>
